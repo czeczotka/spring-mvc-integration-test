@@ -8,6 +8,7 @@
     <name>spring-mvc-integration-test</name>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.0.5.RELEASE</spring.version>
     </properties>
 
@@ -77,6 +78,7 @@
                     <includes>
                         <include>**/*Tests.java</include>
                     </includes>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
         </plugins>
