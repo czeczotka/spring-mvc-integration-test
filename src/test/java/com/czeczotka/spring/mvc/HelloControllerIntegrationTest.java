@@ -39,4 +39,14 @@ public class HelloControllerIntegrationTest {
         then().
                 statusCode(HttpServletResponse.SC_OK);
     }   
+    
+    @Test public void
+    unsuccessfulPostRequest() {
+        given().
+                mockMvc(mockMvc).
+        when().
+                post(HELLO).
+        then().
+                statusCode(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+    }
 }
