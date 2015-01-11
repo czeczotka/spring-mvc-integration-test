@@ -2,6 +2,7 @@ package com.czeczotka.spring.mvc;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
+import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +38,8 @@ public class HelloControllerIntegrationTest {
         when().
                 get(HELLO).
         then().
-                statusCode(HttpServletResponse.SC_OK);
+                statusCode(HttpServletResponse.SC_OK).
+                contentType("text/html");
     }   
     
     @Test public void
