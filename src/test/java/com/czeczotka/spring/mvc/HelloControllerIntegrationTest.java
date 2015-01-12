@@ -39,7 +39,8 @@ public class HelloControllerIntegrationTest {
                 get(HELLO).
         then().
                 statusCode(HttpServletResponse.SC_OK).
-                contentType("text/html");
+                contentType("application/json").
+                body(equalTo("Hello world!"));
     }   
     
     @Test public void

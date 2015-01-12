@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import static java.text.MessageFormat.format;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/hello")
 public class HelloController {
     
 	@RequestMapping(method = RequestMethod.GET)
-	public String hello(
+	public @ResponseBody String hello(
             @RequestParam(required = false, defaultValue = "world") String name, 
-            ModelMap model,
             HttpServletResponse response) {
         
-		model.addAttribute("message", format("Hello {0}!", name));
-        response.setContentType("text/html");
+		String message = format("Hello {0}!", name);
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-		return "hello";
+		return message;
 	}
 }
