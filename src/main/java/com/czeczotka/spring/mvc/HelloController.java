@@ -1,7 +1,6 @@
 package com.czeczotka.spring.mvc;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +18,8 @@ public class HelloController {
             @RequestParam(required = false, defaultValue = "world") String name, 
             HttpServletResponse response) {
         
-		String message = format("Hello {0}!", name);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-		return message;
+		return format("Hello {0}!", name);
 	}
 }
