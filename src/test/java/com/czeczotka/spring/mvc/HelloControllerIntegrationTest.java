@@ -43,6 +43,19 @@ public class HelloControllerIntegrationTest {
                 body(equalTo("Hello world!"));
     }   
     
+    @Test public void 
+    successfulGetRequestWithParam() {
+        given().
+                mockMvc(mockMvc).
+                param("name", "coder").
+        when().
+                get(HELLO).
+        then().
+                statusCode(HttpServletResponse.SC_OK).
+                contentType("application/json").
+                body(equalTo("Hello coder!"));
+    }
+    
     @Test public void
     unsuccessfulPostRequest() {
         given().
