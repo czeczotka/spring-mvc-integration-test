@@ -7,7 +7,13 @@ public class News {
     private String headline;
     private String article;
     private LocalDateTime timestamp;
-    
+
+    public News(String headline, String article, LocalDateTime timestamp) {
+        this.headline = headline;
+        this.article = article;
+        this.timestamp = timestamp;
+    }
+       
     /*
      *   accessor methods below
      */
