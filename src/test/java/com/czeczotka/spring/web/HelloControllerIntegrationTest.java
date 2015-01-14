@@ -1,4 +1,4 @@
-package com.czeczotka.spring.mvc;
+package com.czeczotka.spring.web;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
