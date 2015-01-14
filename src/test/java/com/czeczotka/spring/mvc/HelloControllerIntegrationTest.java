@@ -3,6 +3,8 @@ package com.czeczotka.spring.mvc;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +21,9 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration("classpath:mvc-dispatcher-servlet.xml")
 public class HelloControllerIntegrationTest {
     
-    private final static String HELLO = "/hello";
-    
+    private static final String HELLO = "/hello";
+    private static final String LATEST = "/latest";
+
     private MockMvc mockMvc;
     
     @Autowired
@@ -32,7 +35,7 @@ public class HelloControllerIntegrationTest {
     }
     
     @Test public void 
-    successfulGetRequest() {
+    getHello() {
         given().
                 mockMvc(mockMvc).
         when().
@@ -44,7 +47,7 @@ public class HelloControllerIntegrationTest {
     }   
     
     @Test public void 
-    successfulGetRequestWithParam() {
+    getHelloWithParam() {
         given().
                 mockMvc(mockMvc).
                 param("name", "coder").
@@ -54,6 +57,20 @@ public class HelloControllerIntegrationTest {
                 statusCode(HttpServletResponse.SC_OK).
                 contentType("application/json").
                 body(equalTo("Hello coder!"));
+    }
+
+    @Test public void
+    getLatest() {
+        given ().
+                mockMvc (mockMvc).
+        when ().
+                get(LATEST).
+        then ().
+                statusCode (HttpServletResponse.SC_OK).
+                contentType ("application/json").
+                body ("headline", equalTo ("Latest news!")).
+                body ("article", equalTo ("These are the latest news!")).
+                body ("timestamp", nullValue ());
     }
     
     @Test public void
