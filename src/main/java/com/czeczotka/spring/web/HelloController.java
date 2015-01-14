@@ -12,9 +12,7 @@ import static java.text.MessageFormat.format;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class HelloController {
-
-    private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
+public class HelloController extends AbstractController{
 
     @Autowired
     private NewsService newsService;
