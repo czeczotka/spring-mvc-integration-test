@@ -1,6 +1,8 @@
 package com.czeczotka.spring.web;
 
 import com.czeczotka.spring.domain.News;
+import com.czeczotka.spring.service.NewsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +16,9 @@ public class HelloController {
 
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
 
+    @Autowired
+    private NewsService newsService;
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET, produces = CONTENT_TYPE)
 	public @ResponseBody String hello(@RequestParam(required = false, defaultValue = "world") String name) {
 		return format("Hello {0}!", name);
@@ -23,4 +28,11 @@ public class HelloController {
 	public @ResponseBody News getLatestNews() {
 		return new News("Latest news!", "These are the latest news!", null);
 	}
+
+    /*
+     *   accessor methods below
+     */
+    public void setNewsService (NewsService newsService) {
+        this.newsService = newsService;
+    }
 }
