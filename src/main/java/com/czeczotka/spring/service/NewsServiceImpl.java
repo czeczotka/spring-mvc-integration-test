@@ -1,8 +1,7 @@
 package com.czeczotka.spring.service;
 
-/**
- * @author Jakub Czeczotka
- * @since 14/01/15
- */
-public class NewsServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class NewsServiceImpl implements NewsService {
 }
