@@ -16,7 +16,7 @@ public class NewsController extends AbstractController {
 
     @RequestMapping(value = "/latest", method = RequestMethod.GET, produces = CONTENT_TYPE)
 	public @ResponseBody News getLatestNews() {
-		return new News("Latest news!", "These are the latest news!", null);
+		return newsService.getLatestNews();
 	}
 
     /*
