@@ -22,7 +22,6 @@ import org.springframework.web.context.WebApplicationContext;
 public class HelloControllerIntegrationTest {
     
     private static final String HELLO = "/hello";
-    private static final String LATEST = "/latest";
 
     private MockMvc mockMvc;
     
@@ -59,20 +58,6 @@ public class HelloControllerIntegrationTest {
                 body(equalTo("Hello coder!"));
     }
 
-    @Test public void
-    getLatest() {
-        given ().
-                mockMvc (mockMvc).
-        when ().
-                get(LATEST).
-        then ().
-                statusCode (HttpServletResponse.SC_OK).
-                contentType ("application/json").
-                body ("headline", equalTo ("Latest news!")).
-                body ("article", equalTo ("These are the latest news!")).
-                body ("timestamp", nullValue ());
-    }
-    
     @Test public void
     unsuccessfulPostRequest() {
         given().
