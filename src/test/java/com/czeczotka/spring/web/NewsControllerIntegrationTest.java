@@ -1,6 +1,7 @@
 package com.czeczotka.spring.web;
 
-import junit.framework.TestCase;
+import com.czeczotka.spring.domain.News;
+import com.czeczotka.spring.service.NewsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,27 +21,34 @@ import static org.hamcrest.CoreMatchers.nullValue;
 
 @RunWith (SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration ("classpath:mvc-dispatcher-servlet.xml")
+@ContextConfiguration ("classpath:test-mvc-dispatcher-servlet.xml")
 public class NewsControllerIntegrationTest {
 
     private static final String LATEST = "/latest";
 
     private MockMvc mockMvc;
 
+    private NewsService newsService;
+
     @Autowired
     private WebApplicationContext context;
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup (context).build();
+        newsService = (NewsService) context.getBean ("newsService");
+        mockMvc = MockMvcBuilders.webAppContextSetup (context).build ();
     }
 
     @Test public void
     getLatest() {
+        org.mockito.Mockito.
+                when (newsService.getLatestNews ()).
+                thenReturn (new News ("Latest news!", "These are the latest news!", null));
+
         given ().
                 mockMvc (mockMvc).
         when ().
-                get(LATEST).
+                get (LATEST).
         then ().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
