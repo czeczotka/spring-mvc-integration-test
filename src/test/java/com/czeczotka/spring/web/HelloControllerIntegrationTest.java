@@ -3,7 +3,6 @@ package com.czeczotka.spring.web;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import org.junit.Before;
 import org.junit.Test;

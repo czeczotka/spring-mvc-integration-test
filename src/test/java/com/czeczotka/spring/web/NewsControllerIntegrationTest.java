@@ -15,9 +15,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.time.LocalDateTime;
+
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 @RunWith (SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -41,9 +42,10 @@ public class NewsControllerIntegrationTest {
 
     @Test public void
     getLatest() {
+        LocalDateTime now = LocalDateTime.now ();
         org.mockito.Mockito.
                 when (newsService.getLatestNews ()).
-                thenReturn (new News ("Latest news!", "These are the latest news!", null));
+                thenReturn (new News ("Latest news!", "These are the latest news!", now));
 
         given ().
                 mockMvc (mockMvc).
@@ -54,6 +56,6 @@ public class NewsControllerIntegrationTest {
                 contentType ("application/json").
                 body ("headline", equalTo ("Latest news!")).
                 body ("article", equalTo ("These are the latest news!")).
-                body ("timestamp", nullValue ());
+                body ("timestamp", equalTo (now.toString ()));
     }
 }
