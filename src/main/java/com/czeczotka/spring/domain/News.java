@@ -1,11 +1,17 @@
 package com.czeczotka.spring.domain;
 
+import com.czeczotka.spring.serialize.LocalDateTimeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDateTime;
 
 public class News {
     
     private String headline;
+
     private String article;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime timestamp;
 
     public News(String headline, String article, LocalDateTime timestamp) {
