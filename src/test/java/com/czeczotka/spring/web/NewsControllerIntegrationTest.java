@@ -45,7 +45,7 @@ public class NewsControllerIntegrationTest {
         LocalDateTime now = LocalDateTime.now ();
         org.mockito.Mockito.
                 when (newsService.getLatestNews ()).
-                thenReturn (new News ("Latest news!", "These are the latest news!", now));
+                thenReturn (new News ("Some news!", "These are some news!", now));
 
         given ().
                 mockMvc (mockMvc).
@@ -54,8 +54,8 @@ public class NewsControllerIntegrationTest {
         then ().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
-                body ("headline", equalTo ("Latest news!")).
-                body ("article", equalTo ("These are the latest news!")).
+                body ("headline", equalTo ("Some news!")).
+                body ("article", equalTo ("These are some news!")).
                 body ("timestamp", equalTo (now.toString ()));
     }
 }
