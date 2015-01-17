@@ -17,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:mvc-dispatcher-servlet.xml")
+@ContextConfiguration ("classpath:test-mvc-dispatcher-servlet.xml")
 public class HelloControllerIntegrationTest {
     
     private static final String HELLO = "/hello";
