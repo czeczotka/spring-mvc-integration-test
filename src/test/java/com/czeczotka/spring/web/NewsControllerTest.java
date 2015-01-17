@@ -139,7 +139,17 @@ public class NewsControllerTest {
     }
 
     @Test public void
-    unsuccessfulLatestWithNumber() {
+    failPostToLatest() {
+        given().
+                mockMvc(mockMvc).
+        when().
+                post(LATEST).
+        then().
+                statusCode(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+    }
+
+    @Test public void
+    failLatestWithNonNumber() {
         given ().
                 mockMvc (mockMvc).
         when ().

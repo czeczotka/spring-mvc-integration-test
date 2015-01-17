@@ -58,7 +58,7 @@ public class HelloControllerTest {
     }
 
     @Test public void
-    unsuccessfulPostRequest() {
+    failPostToHello() {
         given().
                 mockMvc(mockMvc).
         when().
