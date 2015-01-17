@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -65,7 +66,7 @@ public class NewsControllerIntegrationTest {
     }
 
     @Test public void
-    getLatestNewsWithPlural () {
+    getLatestNewsWithSeveralResults () {
         int number = 3;
         LocalDateTime dateTime = LocalDateTime.now ();
         String now = formatter.format (dateTime);
@@ -94,6 +95,47 @@ public class NewsControllerIntegrationTest {
                 body ("[2].headline",  equalTo ("Some news! 2")).
                 body ("[2].article",   equalTo ("These are some news! 2")).
                 body ("[2].timestamp", equalTo (now));
+    }
+
+
+
+    @Test public void
+    getLatestNewsWithSingleResult () {
+        int number = 1;
+        LocalDateTime dateTime = LocalDateTime.now ();
+        String now = formatter.format (dateTime);
+        org.mockito.Mockito.
+                when (newsService.getLatestNews (number)).
+                thenReturn (Arrays.asList (new News ("Some news! 0", "These are some news! 0", dateTime)));
+
+        given ().
+                mockMvc (mockMvc).
+        when ().
+                get (LATEST + "/" + number).
+        then ().
+                statusCode (HttpServletResponse.SC_OK).
+                contentType ("application/json").
+                body ("size()", equalTo (number)).
+                body ("[0].headline",  equalTo ("Some news! 0")).
+                body ("[0].article",   equalTo ("These are some news! 0")).
+                body ("[0].timestamp", equalTo (now));
+    }
+
+    @Test public void
+    getLatestNewsForZero () {
+        int number = 0;
+        org.mockito.Mockito.
+                when (newsService.getLatestNews (number)).
+                thenReturn (Collections.emptyList ());
+
+        given ().
+                mockMvc (mockMvc).
+        when ().
+                get (LATEST + "/" + number).
+        then ().
+                statusCode (HttpServletResponse.SC_OK).
+                contentType ("application/json").
+                body ("size()", equalTo (number));
     }
 
     @Test public void
