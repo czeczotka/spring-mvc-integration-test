@@ -26,7 +26,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @RunWith (SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration ("classpath:test-mvc-dispatcher-servlet.xml")
-public class NewsControllerIntegrationTest {
+public class NewsControllerTest {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
