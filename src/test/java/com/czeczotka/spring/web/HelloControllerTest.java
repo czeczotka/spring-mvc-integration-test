@@ -4,6 +4,7 @@ import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.CoreMatchers.equalTo;
 
+import com.czeczotka.spring.domain.News;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.time.LocalDateTime;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -55,6 +58,18 @@ public class HelloControllerTest {
                 statusCode(HttpServletResponse.SC_OK).
                 contentType("application/json").
                 body(equalTo("Hello coder!"));
+    }
+
+    @Test public void
+    getHelloWithLogging() {
+        given ().
+                log().all ().
+                mockMvc (mockMvc).
+        when ().
+                get (HELLO).
+        then ().
+                log().all ().
+                statusCode (HttpServletResponse.SC_OK);
     }
 
     @Test public void
