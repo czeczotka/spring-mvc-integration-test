@@ -1,6 +1,8 @@
 spring-mvc-integration-test
 ===========================
 
-=== WORK IN PROGRESS ===
+Spring MVC integration test with REST Assured and MockMvc (...and a little bit of Mockito)
 
-Spring MVC integration test with Rest Assured and MockMvc
+See my blog for details:
+
+http://blog.czeczotka.com/2015/01/20/spring-mvc-integration-test-with-rest-assured-and-mockmvc/
