@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -33,8 +32,6 @@ public class NewsControllerTest {
 
     private static final String LATEST = "/latest";
 
-    private MockMvc mockMvc;
-
     private NewsService newsService;
 
     @Autowired
@@ -43,8 +40,7 @@ public class NewsControllerTest {
     @Before
     public void setUp() {
         newsService = (NewsService) context.getBean ("newsService");
-        mockMvc = MockMvcBuilders.webAppContextSetup (context).build ();
-        RestAssuredMockMvc.mockMvc = mockMvc;
+        RestAssuredMockMvc.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test public void
