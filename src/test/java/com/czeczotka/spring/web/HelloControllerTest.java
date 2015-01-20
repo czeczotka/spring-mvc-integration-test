@@ -4,7 +4,7 @@ import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import javax.servlet.http.HttpServletResponse;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-import com.czeczotka.spring.domain.News;
+import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +15,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.time.LocalDateTime;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -33,12 +31,12 @@ public class HelloControllerTest {
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        RestAssuredMockMvc.mockMvc = mockMvc;
     }
     
     @Test public void 
     getHello() {
         given().
-                mockMvc(mockMvc).
         when().
                 get(HELLO).
         then().
@@ -50,7 +48,6 @@ public class HelloControllerTest {
     @Test public void 
     getHelloWithParam() {
         given().
-                mockMvc(mockMvc).
                 param("name", "coder").
         when().
                 get(HELLO).
@@ -62,12 +59,11 @@ public class HelloControllerTest {
 
     @Test public void
     getHelloWithLogging() {
-        given ().
-                log().all ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+                log ().all ().
+        when().
                 get (HELLO).
-        then ().
+        then().
                 log().all ().
                 statusCode (HttpServletResponse.SC_OK);
     }
@@ -75,7 +71,6 @@ public class HelloControllerTest {
     @Test public void
     failPostToHello() {
         given().
-                mockMvc(mockMvc).
         when().
                 post(HELLO).
         then().

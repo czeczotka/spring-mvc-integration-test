@@ -2,6 +2,7 @@ package com.czeczotka.spring.web;
 
 import com.czeczotka.spring.domain.News;
 import com.czeczotka.spring.service.NewsService;
+import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,7 @@ public class NewsControllerTest {
     public void setUp() {
         newsService = (NewsService) context.getBean ("newsService");
         mockMvc = MockMvcBuilders.webAppContextSetup (context).build ();
+        RestAssuredMockMvc.mockMvc = mockMvc;
     }
 
     @Test public void
@@ -53,11 +55,10 @@ public class NewsControllerTest {
                 when (newsService.getLatestNews ()).
                 thenReturn (new News ("Some news!", "These are some news!", dateTime));
 
-        given ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+        when().
                 get (LATEST).
-        then ().
+        then().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
                 body ("headline",  equalTo ("Some news!")).
@@ -78,11 +79,10 @@ public class NewsControllerTest {
                         new News ("Some news! 2", "These are some news! 2", dateTime)
                 ));
 
-        given ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+        when().
                 get (LATEST + "/" + number).
-        then ().
+        then().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
                 body ("size()", equalTo (number)).
@@ -108,11 +108,10 @@ public class NewsControllerTest {
                 when (newsService.getLatestNews (number)).
                 thenReturn (Arrays.asList (new News ("Some news! 0", "These are some news! 0", dateTime)));
 
-        given ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+        when().
                 get (LATEST + "/" + number).
-        then ().
+        then().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
                 body ("size()", equalTo (number)).
@@ -128,11 +127,10 @@ public class NewsControllerTest {
                 when (newsService.getLatestNews (number)).
                 thenReturn (Collections.emptyList ());
 
-        given ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+        when().
                 get (LATEST + "/" + number).
-        then ().
+        then().
                 statusCode (HttpServletResponse.SC_OK).
                 contentType ("application/json").
                 body ("size()", equalTo (number));
@@ -141,7 +139,6 @@ public class NewsControllerTest {
     @Test public void
     failPostToLatest() {
         given().
-                mockMvc(mockMvc).
         when().
                 post(LATEST).
         then().
@@ -150,11 +147,10 @@ public class NewsControllerTest {
 
     @Test public void
     failLatestWithNonNumber() {
-        given ().
-                mockMvc (mockMvc).
-        when ().
+        given().
+        when().
                 get (LATEST + "/abc").
-        then ().
+        then().
                 statusCode (HttpServletResponse.SC_BAD_REQUEST);
     }
 }
