@@ -1,4 +1,4 @@
-spring-mvc-integration-test
+spring-mvc-integration-test [![Build Status](https://travis-ci.org/czeczotka/spring-mvc-integration-test.svg?branch=master)](https://travis-ci.org/czeczotka/spring-mvc-integration-test)
 ===========================
 
 Spring MVC integration test with REST Assured and MockMvc (...and a little bit of Mockito)
